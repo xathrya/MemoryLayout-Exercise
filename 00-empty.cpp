@@ -1,7 +1,6 @@
 /*
 Find out the memory layout of a class
-Each C++ object need to hold its instance data. But if there is none,
-what happen?
+Each C++ object need to hold its instance data. But if there is none, what happen?
 
 Compile:
     (GCC)  

@@ -1,38 +1,45 @@
 /*
 Virtual Table or Virtual Method Table
-In object-oriented world, a polymorphism makes Derivate clas
-can override the behavior of functions inherited from base.
+In OO (object-oriented) world, a polymorphism makes Derivate class
+can override the behavior of functions inherited from Base.
+C++ use virtual table to implement this.
+
+What will happen in vtable if a method is overridden?
 
 testing on:
-    - TDM GCC 5.1.0
-
-ps: Assuming x64
+    - TDM GCC 5.1.0 (assuming x64)
 
 Compile:
-    $ g++ vtable-simple.cpp -std=c++11 -o vtable-simple
+    $ g++ vtable-override.cpp -std=c++11 -o vtable-override
 
 Run:
-    $ vtable-simple
+    $ vtable-override
 
 We can also ask compiler to emit the vtable and other structure, see the difference.
     (GCC)
-    $ g++ -g -fdump-class-hierarchy -std=c++11 vtable-simple.cpp
+    $ g++ -g -fdump-class-hierarchy -std=c++11 vtable-override.cpp
 
     (MSVC)
-    $ cl.exe /d1 reportAllClassLayout vtable-simple.cpp
+    $ cl.exe /d1 reportAllClassLayout vtable-override.cpp
 
 */
 #include <iostream>
 #include "util.hpp"
 
-
-//======== Type Definitions =========================================
 /*
-Order of vtable is similar to the order of declared virtual function in code.
-The order is also base on the relationship of inheritance. 
-It means the base vtable will be placed before the vtable of Derivate (unless overridden)
+Observe the address of each of them.
+Questions:
+    - Is there any two or more entry in vtable that has same address? 
+        - Why?
+    - Is there any two or more classes that has same address on vtable? 
+        - Why?
+    - What happen when you uncomment the Derivate::B() ?
+
+Conclusion:
+    The entry will be similar unless overriding occurred.
 */
 
+//======== Type Definitions =========================================
 /*
 Memory layout:
     - Base::vtable  (pointer to vtable of Base)
@@ -67,8 +74,6 @@ The vtable layout:
     - Derivate::~Derivate()       (deleting destructor)
     - Base::B()
     - Derivate::C()
-
-Try to uncomment B()
 */
 class Derivate final : public Base 
 {
