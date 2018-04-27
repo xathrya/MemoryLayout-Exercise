@@ -19,6 +19,8 @@ Run:
 
 /*
 Observe the address of each of them.
+Questions:
+    - Why the address of w is bigger than other three?
 
 Conclusion:
     When instantiating a class with two or more base, 

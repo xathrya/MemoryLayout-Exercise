@@ -1,6 +1,6 @@
 /*
 Virtual Table or Virtual Method Table
-In object-oriented world, a polymorphism makes derived clas
+In object-oriented world, a polymorphism makes Derivate clas
 can override the behavior of functions inherited from base.
 
 testing on:
@@ -9,10 +9,18 @@ testing on:
 ps: Assuming x64
 
 Compile:
-    $ g++ vtable.cpp -std=c++11 -o vtable
+    $ g++ vtable-simple.cpp -std=c++11 -o vtable-simple
 
 Run:
-    $ vtable
+    $ vtable-simple
+
+We can also ask compiler to emit the vtable and other structure, see the difference.
+    (GCC)
+    $ g++ -g -fdump-class-hierarchy -std=c++11 vtable-simple.cpp
+
+    (MSVC)
+    $ cl.exe /d1 reportAllClassLayout vtable-simple.cpp
+
 */
 #include <iostream>
 #include "util.hpp"
@@ -22,7 +30,7 @@ Run:
 /*
 Order of vtable is similar to the order of declared virtual function in code.
 The order is also base on the relationship of inheritance. 
-It means the base vtable will be placed before the vtable of derived (unless overridden)
+It means the base vtable will be placed before the vtable of Derivate (unless overridden)
 */
 
 /*
@@ -31,7 +39,8 @@ Memory layout:
     - Base::id
 
 The vtable layout:
-    - Base::~Base()
+    - Base::~Base()     (base object destructor)
+    - Base::~Base()     (deleting destructor)
     - Base::B()
     - Base::C()
 */
@@ -50,24 +59,25 @@ public:
 
 /*
 Memory layout:
-    - Derived::vtable (pointer to vtable of Derived)
+    - Derivate::vtable (pointer to vtable of Derivate)
     - Base::id
 
 The vtable layout:
-    - Derived::~Derived()
+    - Derivate::~Derivate()       (base object destructor)
+    - Derivate::~Derivate()       (deleting destructor)
     - Base::B()
-    - Derived::C()
+    - Derivate::C()
 
 Try to uncomment B()
 */
-class Derived final : public Base 
+class Derivate final : public Base 
 {
 public:
-    Derived(int id) : Base(id)  { }
-    ~Derived()                  { }
+    Derivate(int id) : Base(id)  { }
+    ~Derivate()                  { }
 
-    // void B() override           { std::cout << "-  Derived[" << id << "]::B" << std::endl; } 
-    void C() override           { std::cout << "-  Derived[" << id << "]::C" << std::endl; }
+    // void B() override           { std::cout << "-  Derivate[" << id << "]::B" << std::endl; } 
+    void C() override           { std::cout << "-  Derivate[" << id << "]::C" << std::endl; }
 };
 
 //======== Helper Functions =========================================
@@ -76,12 +86,12 @@ public:
 int main()
 {
     Base base(1);
-    Derived derived(2);
-    Base *pbase = new Derived(3);
+    Derivate derivate(2);
+    Base *pbase = new Derivate(3);
 
     dump_instance("instance of base", base, 4);    
-    dump_instance("instance of derived", derived, 4);    
-    dump_instance("instance of pointer to derived", *pbase, 4);
+    dump_instance("instance of Derivate", derivate, 4);    
+    dump_instance("instance of pointer to Derivate", *pbase, 4);
 
     // Try to call B() of each instance!
 

@@ -39,10 +39,7 @@ void dump_vtable(T &t, int virtuals)
         virtuals, ((virtuals == 1) ? "y" : "ies"));
 
     for (int i = 0; i < virtuals; i++)
-    {
-        uintptr_t * fptr = ((uintptr_t**) vtable)[i];
-        dump_memory(fptr, sizeof(uintptr_t*), 5);
-    }
+        printf("     %p\n", ((uintptr_t**) vtable)[i]);
 }
 
 template<typename T>
