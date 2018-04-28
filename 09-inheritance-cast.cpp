@@ -42,7 +42,7 @@ struct Base1
     {
         x = a;
         y = a + 45;
-        printf("[%p] Hello Base1! %x %x\n", &function, x, y);
+        printf("[%p] Hello Base1! %x %x\n", &Base1::function, x, y);
     }
 };
 
@@ -58,7 +58,7 @@ struct Base2
     void function(uint32_t a)
     {
         z = a;
-        printf("[%p] Hello Base2! %x\n", &function, z);
+        printf("[%p] Hello Base2! %x\n", &Base2::function, z);
     }
 };
 
@@ -74,7 +74,7 @@ struct Derivate : public Base1, public Base2
     void function(uint32_t a)
     {
         w = a;
-        printf("[%p] Hello Derivate! %x %x %x %x\n", &function, x, y, z, w);
+        printf("[%p] Hello Derivate! %x %x %x %x\n", &Derivate::function, x, y, z, w);
     }
 };
 
