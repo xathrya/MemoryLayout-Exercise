@@ -7,6 +7,7 @@ Compile:
     $ g++ permutate-layout.cpp -std=c++11 -o permutate-layout
 */
 #include "util.hpp"
+#include <cstddef>
 
 /*
 Observe the address of each of them.    
