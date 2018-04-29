@@ -111,7 +111,6 @@ int main()
     printf("[-] I'm located at: %p\n", pderivate);
     pderivate->function(3);
 
-
     return 0;
 }
 
