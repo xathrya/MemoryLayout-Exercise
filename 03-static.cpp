@@ -50,8 +50,8 @@ public:
     }
     void printFuncs()
     {
-        printf("Location of printVars   : [%p]\n", &printVars);
-        printf("Location of printFuncs  : [%p]\n", &printFuncs);
+        printf("Location of printVars   : [%p]\n", &Example::printVars);
+        printf("Location of printFuncs  : [%p]\n", &Example::printFuncs);
     }
 };
 int Example::x;

@@ -7,9 +7,15 @@ Compile:
     $ g++ permutate-layout.cpp -std=c++11 -o permutate-layout
 */
 #include "util.hpp"
+#include <cstddef>
 
 /*
-Observe the address of each of them.    
+Observe the address of each of them.
+Question:
+    - Is 4 the only alignment for struct in memory? 
+        - If not, what else?
+    - What is the content of padding? Random or some value?
+        - How can you confirm it?
 
 Conclusion:
     Placing variables in certain orders will affect the size. Each members variable of struct or class
